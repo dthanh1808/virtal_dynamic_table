@@ -1,4 +1,3 @@
-
 const API_URL = "https://671891927fc4c5ff8f49fcac.mockapi.io/v2";
 let page = 1;                  // trang hiện tại
 const batchSize = 20;          // số record mỗi batch
@@ -17,7 +16,13 @@ async function fetchData() {
   loader.style.display = "block";
 
   try {
-    const res = await fetch(`${API_URL}?page=${page}&limit=${batchSize}`);
+    // Thêm timeout 1 giây max để UX nhanh hơn
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+
+    const res = await fetch(`${API_URL}?page=${page}&limit=${batchSize}`, { signal: controller.signal });
+    clearTimeout(timeoutId);
+
     const result = await res.json();
 
     if (result.length === 0) {
@@ -27,7 +32,11 @@ async function fetchData() {
       page++; // tăng page
     }
   } catch (err) {
-    console.error(err);
+    if (err.name === 'AbortError') {
+      console.warn('Fetch request timed out (<1s)');
+    } else {
+      console.error(err);
+    }
   }
 
   loader.style.display = "none";
@@ -38,10 +47,13 @@ async function fetchData() {
 function renderBatch(users) {
   users.forEach((user) => {
     const tr = document.createElement("tr");
+    tr.style.backgroundColor = user.color || "#fff"; // color áp dụng cho card / row
+    tr.style.transition = "background 0.3s ease";
+
     tr.innerHTML = `
       <td data-label="ID">${user.id || ''}</td>
-      <td data-label="Avatar"><img src="${user.avatar || 'https://via.placeholder.com/40'}" alt="avatar" style="width:40px;height:40px;border-radius:50%;border:2px solid ${user.color || '#ccc'};object-fit:cover;"></td>
-      <td data-label="Name" style="font-weight:700; color:${user.color || '#000'};">${user.name || 'N/A'}</td>
+      <td data-label="Avatar"><img src="${user.avatar || 'https://via.placeholder.com/40'}" alt="avatar" style="width:40px;height:40px;border-radius:50%;border:2px solid #fff;object-fit:cover;"></td>
+      <td data-label="Name" style="font-weight:700;">${user.name || 'N/A'}</td>
       <td data-label="Genre">${user.genre || 'N/A'}</td>
       <td data-label="Email">${user.email || 'N/A'}</td>
       <td data-label="Company">${user.company || 'N/A'}</td>

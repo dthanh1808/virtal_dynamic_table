@@ -5,10 +5,7 @@ body {
   height: 100vh;
   padding: 40px;
   color: #000;
-  background-image: url(../img/27308bf6-b18c-45d4-93dc-d40907ac6cc8.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+
   overflow-y: hidden;
 }
 
@@ -21,7 +18,7 @@ body {
 
 .container1 h1 {
   font-size: 28px;
-  color: white;
+  color: black;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -49,12 +46,11 @@ thead th {
   text-align: left;
   padding: 14px 12px;
   font-size: 16px;
-  border-left: 2px solid #fff;
-  border-right: 2px solid #fff;
-
+  border: none;
+ z-index: 100;
   position: sticky;
   top: 0;
-  z-index: 1;
+ 
 }
 
 
@@ -68,6 +64,7 @@ tbody td {
   vertical-align: top;
   border-bottom: 1px solid #eee;
   font-size: 14px;
+ 
   font-weight: 400;
 }
 
@@ -131,7 +128,7 @@ tbody tr:hover {
   }
 
   thead {
-    display: none;
+    display: none; /* ẩn header table */
   }
 
   tbody tr {
@@ -153,7 +150,7 @@ tbody tr:hover {
 
   tbody td::before {
     width: 80px;
-    content: attr(data-label); 
+    content: attr(data-label); /* lấy label từ attribute */
     font-weight: bold;
     color: #555;
   }
