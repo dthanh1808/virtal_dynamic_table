@@ -1,0 +1,125 @@
+/* ----------- Base ----------- */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f8f9fb;
+  height: 100vh;
+  padding: 40px;
+  color: #000;
+  background-image: url(../img/27308bf6-b18c-45d4-93dc-d40907ac6cc8.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-y: hidden;
+}
+
+/* ----------- Container ----------- */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+ 
+}
+
+.container1 h1 {
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ----------- Table ----------- */
+.container2 {
+  position: relative;
+  overflow-y: auto;
+  height: 500px; 
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  min-width: 1000px;
+}
+
+thead th {
+  background-color: #00ffff;
+  color: #000;
+  text-align: left;
+  padding: 14px 12px;
+  font-size: 16px;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+
+tbody td {
+  padding: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+tbody tr:hover {
+  background-color: #f0f6ff;
+}
+
+/* Avatar + name */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.status.active {
+  color: 2baad0;
+}
+.status.inactive {
+  color: #888;
+}
+
+.color-bar {
+  width: 6px;
+  border-radius: 4px 0 0 4px;
+}
+
+
+.loader {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: #00ffff;
+  display: none;
+}
+
+
+.container2::-webkit-scrollbar {
+  width: 8px;
+}
+.container2::-webkit-scrollbar-thumb {
+  background: #00ffff;
+  border-radius: 4px;
+}
