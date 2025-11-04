@@ -26,7 +26,7 @@ const extraRecords = [
     state: "California",
     zip: "90045",
     email: "taekook@example.com",
-    phone: "+84 912 456 789",
+    phone: "84 912 456 789",
     password: "X9T6LpQ1zA",
     id: "101"
   }
