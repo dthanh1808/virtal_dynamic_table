@@ -4,10 +4,8 @@ const batchSize = 20;
 let isLoading = false;
 let hasMore = true;
 
-// *** Biến trạng thái SORT mới ***
 let sortField = 'id';
-let sortOrder = 'asc'; 
-
+let sortOrder = 'asc';
 
 const tableBody = document.getElementById("table-body");
 const loader = document.getElementById("loader");
@@ -22,7 +20,7 @@ async function fetchData() {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1000);
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     const apiUrlWithSort = `${API_URL}?page=${page}&limit=${batchSize}&sortBy=${sortField}&order=${sortOrder}`;
 
@@ -32,15 +30,15 @@ async function fetchData() {
     const result = await res.json();
 
     if (result.length === 0) {
-      hasMore = false; // hết dữ liệu
+      hasMore = false;
       console.log("--- Đã tải hết dữ liệu ---");
     } else {
       renderBatch(result);
-      page++; // tăng page
+      page++;
     }
   } catch (err) {
     if (err.name === 'AbortError') {
-      console.warn('Fetch request timed out (<1s)');
+      console.warn('Fetch request timed out');
     } else {
       console.error('Fetch error:', err);
     }
@@ -54,11 +52,10 @@ async function fetchData() {
 function renderBatch(users) {
   users.forEach((user) => {
     const tr = document.createElement("tr");
-    tr.style.backgroundColor = user.color || "#fff"; 
-    tr.style.transition = "background 0.3s ease";
+    tr.style.backgroundColor = user.color || "#fff";
 
     tr.innerHTML = `
-     <td data-label="ID">${user.id || ''}</td>
+      <td data-label="ID">${user.id || ''}</td>
       <td data-label="Avatar"><img src="${user.avatar || 'https://via.placeholder.com/40'}" alt="avatar" style="width:40px;height:40px;border-radius:50%;border:2px solid #fff;object-fit:cover;"></td>
       <td data-label="Name" style="font-weight:700;">${user.name || 'N/A'}</td>
       <td data-label="Genre">${user.genre || 'N/A'}</td>
@@ -76,50 +73,101 @@ function renderBatch(users) {
       <td data-label="ZIP">${user.zipcode || 'N/A'}</td>
       <td data-label="CreatedAt">${user.createdAt || 'N/A'}</td>
       <td data-label="Password">${user.password || 'N/A'}</td>
-`;
+      <td data-label="Actions">
+        <button class="btn-delete" data-id="${user.id}">❌ Delete</button>
+      </td>
+    `;
     tableBody.appendChild(tr);
   });
 }
 
-// -------------------- Sort Logic MỚI --------------------
-/**
- * Thiết lập trường và thứ tự sắp xếp mới, sau đó reset và tải lại dữ liệu.
- * @param {string} field .
- */
+// -------------------- Sort --------------------
 function sortData(field) {
-  if (isLoading) return; // Không cho phép sort khi đang tải
+  if (isLoading) return;
 
-  // 1. Cập nhật thứ tự sắp xếp
-  if (sortField === field) {
-    // Đảo ngược thứ tự nếu nhấp vào cùng trường
-    sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-  } else {
-    // Đặt trường sắp xếp mới và reset thứ tự về 'asc'
-    sortField = field;
-    sortOrder = 'asc';
-  }
+  if (sortField === field) sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+  else { sortField = field; sortOrder = 'asc'; }
 
-  console.log(`Sorting by: ${sortField}, order: ${sortOrder}`);
-
-  // 2. Reset trạng thái và giao diện
-  tableBody.innerHTML = ''; // Xóa dữ liệu cũ trên bảng
-  page = 1; // Quay lại trang 1
-  hasMore = true; // Cho phép tải lại
-
-  // 3. Tải dữ liệu mới
+  tableBody.innerHTML = '';
+  page = 1;
+  hasMore = true;
   fetchData();
 }
 
-
-// -------------------- Scroll Event --------------------
+// -------------------- Scroll --------------------
 container.addEventListener("scroll", () => {
   const { scrollTop, scrollHeight, clientHeight } = container;
-  // Tải dữ liệu khi cuộn đến gần cuối (cách 20px)
   if (scrollTop + clientHeight >= scrollHeight - 20 && !isLoading && hasMore) {
     fetchData();
   }
 });
 
+// -------------------- Delete --------------------
+tableBody.addEventListener("click", async (e) => {
+  if (!e.target.classList.contains("btn-delete")) return;
+
+  const id = e.target.dataset.id;
+  if (!confirm("Bạn có chắc muốn xóa record này không?")) return;
+
+  try {
+    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error(res.status);
+    // Xóa khỏi bảng
+    e.target.closest("tr").remove();
+    console.log(`Deleted record ${id}`);
+  } catch (err) {
+    console.error("Lỗi xóa record:", err);
+  }
+});
+
+// -------------------- Modal Add Record --------------------
+function showModal() { document.getElementById("modal").style.display="flex"; }
+function closeModal() { 
+  document.getElementById("modal").style.display="none"; 
+  document.getElementById("formAdd").reset(); 
+}
+
+document.getElementById("formAdd").addEventListener("submit", async(e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const now = new Date().toISOString();
+
+  const payload = {
+    avatar: f.get("avatar") || "https://via.placeholder.com/40",
+    name: f.get("name") || "N/A",
+    genre: f.get("genre") || "N/A",
+    email: f.get("email") || "N/A",
+    company: f.get("company") || "N/A",
+    phone: f.get("phone") || "N/A",
+    dob: f.get("dob") || now,
+    timezone: f.get("timezone") || "UTC",
+    music: f.get("music") || "N/A",
+    city: f.get("city") || "N/A",
+    state: f.get("state") || "N/A",
+    address: f.get("address") || "N/A",
+    street: f.get("street") || "N/A",
+    building: f.get("building") || "N/A",
+    zipcode: f.get("zipcode") || "00000",
+    createdAt: now,
+    password: f.get("password") || "***",
+    color: f.get("color") || "#cccccc"
+  };
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error(res.status);
+    const newUser = await res.json();
+    closeModal();
+    renderBatch([newUser]); // thêm vào bảng ngay
+  } catch(err) {
+    console.error("Lỗi thêm record:", err);
+  }
+});
+
 // -------------------- Init --------------------
 fetchData();
-

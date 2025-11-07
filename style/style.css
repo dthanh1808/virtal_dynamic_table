@@ -13,7 +13,7 @@ body {
 .section {
   max-width: 1200px;
   margin: 0 auto;
- 
+
 }
 
 .container1 h1 {
@@ -27,7 +27,7 @@ body {
 .container2 {
   position: relative;
   overflow-y: auto;
-  height: 500px; 
+  height: 500px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -47,10 +47,10 @@ thead th {
   padding: 14px 12px;
   font-size: 16px;
   border: none;
- z-index: 100;
+  z-index: 100;
   position: sticky;
   top: 0;
- 
+
 }
 
 
@@ -64,7 +64,7 @@ tbody td {
   vertical-align: top;
   border-bottom: 1px solid #eee;
   font-size: 14px;
- 
+
   font-weight: 400;
 }
 
@@ -94,6 +94,7 @@ tbody tr:hover {
 .status.active {
   color: 2baad0;
 }
+
 .status.inactive {
   color: #888;
 }
@@ -116,19 +117,28 @@ tbody tr:hover {
 .container2::-webkit-scrollbar {
   width: 8px;
 }
+
 .container2::-webkit-scrollbar-thumb {
   background: #00ffff;
   border-radius: 4px;
 }
+
 /* Responsive: chuyển table thành card trên mobile */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
     width: 100%;
   }
 
   thead {
-    display: none; /* ẩn header table */
+    display: none;
+    /* ẩn header table */
   }
 
   tbody tr {
@@ -137,8 +147,10 @@ tbody tr:hover {
     border-radius: 10px;
     padding: 12px;
     background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
+
+ 
 
   tbody td {
     display: flex;
@@ -150,7 +162,8 @@ tbody tr:hover {
 
   tbody td::before {
     width: 80px;
-    content: attr(data-label); /* lấy label từ attribute */
+    content: attr(data-label);
+    /* lấy label từ attribute */
     font-weight: bold;
     color: #555;
   }
