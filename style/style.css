@@ -11,7 +11,7 @@ body {
 
 /* ----------- Container ----------- */
 .section {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 
 }
@@ -20,6 +20,7 @@ body {
   font-size: 28px;
   color: black;
   text-align: center;
+  margin-top: 0;
   margin-bottom: 20px;
 }
 
@@ -27,7 +28,8 @@ body {
 .container2 {
   position: relative;
   overflow-y: auto;
-  height: 500px;
+  width: 100%;
+  height: 550px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -37,7 +39,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  min-width: 1000px;
+ 
 }
 
 thead th {
@@ -60,11 +62,12 @@ tbody tr {
 
 
 tbody td {
+  width: fit-content;
+  white-space: nowrap;  
   padding: 12px;
   vertical-align: top;
-  border-bottom: 1px solid #eee;
   font-size: 14px;
-
+  max-height: 71px;
   font-weight: 400;
 }
 
@@ -171,4 +174,75 @@ tbody tr:hover {
   tbody td img {
     margin-right: 10px;
   }
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-row label {
+  width: 120px;
+  font-weight: bold;
+}
+
+.form-row input, .form-row select {
+  flex: 1;
+  padding: 5px 8px;
+}
+
+.avatar-preview img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-actions button {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background: #00ffff;
+  color: white;
+  font-weight: bold;
+}
+
+.form-actions button[type="button"] {
+  background: #ccc;
 }
