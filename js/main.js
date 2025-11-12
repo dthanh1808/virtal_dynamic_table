@@ -89,7 +89,7 @@ function renderBatch(users) {
 function renderRow(user) {
     const tr = document.createElement("tr");
     tr.dataset.id = user.id;
-    tr.style.backgroundColor = lightenColor(user.color || "#fff", 0.4);
+    tr.style.backgroundColor = lightenColor(user.color || "#fff", 0.6);
     tr.innerHTML = `
         <td>
             <button class="btn-edit" style="background-color: #7ad6caff; border: none; width: 30px; height:30px; border-radius: 4px"  data-id="${user.id}">✏️</button>
