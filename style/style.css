@@ -1,9 +1,11 @@
 /* ----------- Base ----------- */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f8f9fb;
+  background-color: #e6f5f5;
   height: 100vh;
-  padding: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
   color: #000;
 
   overflow-y: hidden;
@@ -18,7 +20,7 @@ body {
 
 .container1 h1 {
   font-size: 28px;
-  color: black;
+  color: #42AEFF;
   text-align: center;
   margin-top: 0;
   margin-bottom: 20px;
@@ -29,7 +31,7 @@ body {
   position: relative;
   overflow-y: auto;
   width: 100%;
-  height: 550px;
+  height: 500px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -43,32 +45,29 @@ table {
 }
 
 thead th {
-  background-color: #00ffff;
-  color: #000;
+  background-color: #42AEFF;
+  color: #FFF;
   text-align: left;
   padding: 14px 12px;
   font-size: 16px;
-  border: none;
-  z-index: 100;
+  border-left: 0.1px solid white;
+  border-right: 0.1px solid white;
+  z-index: 999;
   position: sticky;
+  background-clip: padding-box;
+
   top: 0;
 
 }
 
 
-tbody tr {
-  transition: background 0.2s ease;
-}
 
 
 tbody td {
   width: fit-content;
   white-space: nowrap;  
   padding: 12px;
-  vertical-align: top;
   font-size: 14px;
-  max-height: 71px;
-  font-weight: 400;
 }
 
 tbody tr:hover {
@@ -112,7 +111,7 @@ tbody tr:hover {
   text-align: center;
   padding: 20px;
   font-weight: bold;
-  color: #00ffff;
+  color: #42AEFF;
   display: none;
 }
 
@@ -122,7 +121,7 @@ tbody tr:hover {
 }
 
 .container2::-webkit-scrollbar-thumb {
-  background: #00ffff;
+  background: #42AEFF;
   border-radius: 4px;
 }
 
@@ -158,15 +157,19 @@ tbody tr:hover {
   tbody td {
     display: flex;
     gap: 30px;
+    height: 100%;
     text-align: center;
+    align-items: center;
     padding: 6px 0;
     border: none;
   }
+  
+  
 
   tbody td::before {
     width: 80px;
     content: attr(data-label);
-    /* lấy label từ attribute */
+   
     font-weight: bold;
     color: #555;
   }
@@ -238,7 +241,7 @@ tbody tr:hover {
 }
 
 .form-actions button[type="submit"] {
-  background: #00ffff;
+  background: #42AEFF;
   color: white;
   font-weight: bold;
 }
