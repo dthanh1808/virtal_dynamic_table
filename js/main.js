@@ -92,7 +92,7 @@ function renderRow(user) {
     tr.style.backgroundColor = lightenColor(user.color || "#fff", 0.4);
     tr.innerHTML = `
         <td>
-            <button class="btn-edit" style="background-color: #4b8a82ff; border: none; width: 30px; height:30px; border-radius: 4px"  data-id="${user.id}">✏️</button>
+            <button class="btn-edit" style="background-color: #7ad6caff; border: none; width: 30px; height:30px; border-radius: 4px"  data-id="${user.id}">✏️</button>
             <button class="btn-delete" style="background-color: #D9D9D9; border: none; width: 30px; height:30px; border-radius: 4px" data-id="${user.id}">❌</button>
         </td>
         <td>${user.id}</td>
@@ -218,7 +218,7 @@ formAdd.addEventListener("submit", async (e) => {
                 tr.style.backgroundColor = lightenColor(data.color || "#fff", 0.4);
                 tr.innerHTML = `
                     <td>
-                        <button class="btn-edit" style="background-color: #4b8a82ff; border: none; width: 30px; height:30px; border-radius: 4px" data-id="${data.id}">✏️</button>
+                        <button class="btn-edit" style="background-color: #7ad6caff; border: none; width: 30px; height:30px; border-radius: 4px" data-id="${data.id}">✏️</button>
                         <button class="btn-delete" style="background-color: #D9D9D9; border: none; width: 30px; height:30px; border-radius: 4px" data-id="${data.id}">❌</button>
                     </td>
                     <td>${data.id}</td>
