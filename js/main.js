@@ -163,7 +163,7 @@ tableBody.addEventListener("click", e=>{
 function validateForm(payload){
     const errors = [];
 
-    if(!payload.name || !/^[a-zA-Z\s]{2,50}$/.test(payload.name))
+    if(!payload.name || !/^[A-Za-zÀ-ÖØ-öø-ÿ\s]{2,50}$/.test(payload.name))
         errors.push("Name phải từ 2-50 ký tự chữ.");
 
     if(!payload.email || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(payload.email))
